@@ -1,0 +1,74 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<Section>
+  <div class="bg-white">
+    <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 py-2">
+      <div class="text-center">
+        <ul
+          class="breadcrumb inline-flex h-8 items-center justify-center space-x-2 rounded-3xl bg-blue-100 px-4 py-2">
+          <li class="leading-none text-dark">
+            <a class="inline-flex items-center text-primary" href="{% url 'home' %}">
+              <svg
+                class="mr-1.5"
+                width="15"
+                height="15"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13.1769 15.0588H10.3533V9.41178H5.64744V15.0588H2.82391V6.58825H1.88274V16H14.118V6.58825H13.1769V15.0588ZM6.58862 15.0588V10.353H9.41215V15.0588H6.58862ZM15.8084 6.09225L15.2512 6.85178L8.00038 1.52472L0.749559 6.8499L0.192383 6.09131L8.00038 0.357666L15.8084 6.09225Z"
+                  fill="black"
+                />
+              </svg>
+              <span class="text-sm leading-none">Home</span>
+            </a>
+          </li>
+          <li class="leading-none text-dark">
+            <span class="text-sm leading-none">/Hotels </span>
+          </li>
+        </ul>
+      </div>
+      <h2 class="font-semibold text-2xl pb-2">{{ hotel.name }}</h2>
+  
+      <div class="grid grid-cols-1 gap-x-6 gap-y-10 h-1/2">
+        <div class="relative lg:flex h-1/8 bg-gray-50 p-2 group bg-white  p-4">
+          <img src="{{ hotel.hotel_image.url }}" alt="{{ hotel.name }}" class="aspect-square w-3/4 rounded-lg bg-gray-200 object-cover xl:aspect-[7/8]">
+          <div class="relative px-4">
+            <h3 class="mt-4 text-lg font-medium text-gray-900 ">{{ hotel.name}}</h3>
+            <p class="text-lg font-medium text-gray-900 ">Location: {{hotel.location }}</p>
+            <h3 class="text-green-900 font-semibold mt-1 text-sm">Owned by: {{ hotel.owner.username }}</h3>
+            <h3 class="text-green-900 font-semibold mt-1 text-sm">Contact: {{ hotel.phone }}</h3>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-2xl pt-5 pb-4">Our Menu List</h2>
+  
+      <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+        {% for menu in menus %}
+        <a href="#" class="relative bg-gray-50 rounded p-2 group bg-white border rounded-lg shadow-lg p-4">
+          <img src="{{ menu.menu_image.url }}" alt="{{ menu.description }}" class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]">
+          <h3 class="mt-4 text-lg font-medium text-gray-900 ">{{ menu.title}}</h3>
+          <p class="text-lg font-medium text-gray-900 ">Kshs. {{menu.price }}</p>
+          <h3 class="text-green-900 font-semibold mt-1 text-sm">By: {{ menu.hotel.name }}</h3>
+          <form class="absolute bottom-2 right-2" action="{% url 'add-to-cart' menu.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-yellow-300 hover:text-white px-4 py-2 rounded-full flex items-center shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+              </svg>
+              Add to Cart
+            </button>
+          </form>
+        </a>
+        {% endfor %}
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

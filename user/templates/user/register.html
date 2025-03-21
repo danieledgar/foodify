@@ -1,0 +1,82 @@
+{% extends 'user/basic.html' %}
+{% load static %}
+
+{% block form%}
+        <!-- Title -->
+        <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">Create An Account</h1>
+
+        <!-- Form Section -->
+        <form method="POST" class="max-w-md mx-auto">
+            {% csrf_token %}
+            
+            <!-- Username Field -->
+            <div class="mb-4">
+                <label for="username" class="block mb-2 text-sm font-medium text-gray-700">Username</label>
+                <input type="text" id="username" name="username" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                    placeholder="Enter your username" required>
+            </div>
+
+            <!-- First Name Field -->
+            <div class="mb-4">
+                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-700">First name</label>
+                <input type="text" id="first_name" name="first_name" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                    placeholder="Enter your First Name">
+            </div>
+
+            <!-- Last Name Field -->
+            <div class="mb-4">
+                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-700">Last name</label>
+                <input type="text" id="last_name" name="last_name" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                    placeholder="Enter your Last Name">
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-4">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                    placeholder="Enter your email" required>
+            </div>
+
+            <!-- Phone Number Field -->
+            <div class="mb-4">
+                <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-700">Phone Number</label>
+                <input type="tel" id="phone_number" name="phone_number" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                    placeholder="Enter your phone number" required>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-4">
+                <label for="password1" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password1" name="password1" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                    placeholder="Enter your password" required>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="mb-4">
+                <label for="password2" class="block mb-2 text-sm font-medium text-gray-700">Confirm Password</label>
+                <input type="password" id="password2" name="password2" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                    placeholder="Confirm your password" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" 
+                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg shadow-md transition duration-200">
+                Register
+            </button>
+        </form>
+
+        <!-- Footer Section -->
+        <div class="text-center mt-4">
+            <p class="text-sm">Already have an account? 
+                <a href="{% url 'login' %}" class="text-blue-600 font-semibold hover:underline">Log in</a>
+            </p>
+        </div>
+        <p class="text-xs text-gray-600 text-center mt-10">&copy; 2025</p>
+{% endblock form %}

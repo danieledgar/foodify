@@ -1,0 +1,28 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M17 16l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </div>
+        <div class="ml-3">
+            <p class="text-sm text-yellow-700 font-medium">
+            Oops! Hotel not found. Please register a hotel to access Hotel managnment.
+            </p>
+            <p class="m-5 text-sm text-yellow-600">
+            If you feel this is a mistake you can contact the admin.
+            </p>
+            <a href="{% url 'add-hotel' %}" 
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-200 px-4 py-2 m-4">
+            Register A Hotel
+            </a>
+        </div>
+    </div>
+  </div>
+  
+
+{% endblock content %}

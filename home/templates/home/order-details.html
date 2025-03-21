@@ -1,0 +1,83 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+    <!-- Order Details Header -->
+    <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">Order #{{ order.id }}</h1>
+        <p class="text-gray-600">Placed on {{ order.created_at | date:"M d, Y" }}</p>
+    </div>
+
+    <!-- Order Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Order Info -->
+        <div class="bg-white p-4 rounded-lg shadow-md border">
+            <h2 class="text-lg font-bold text-gray-800 mb-2">Order Info</h2>
+            <p class="text-sm text-gray-600"><span class="font-semibold">Order ID:</span> {{ order.id }}</p>
+            <p class="text-sm text-gray-600"><span class="font-semibold">Status:</span> <span class="text-blue-500">{{ order.status }}</span></p>
+        </div>
+
+        <!-- Delivery Details -->
+        <div class="bg-white p-4 rounded-lg shadow-md border">
+            <h2 class="text-lg font-bold text-gray-800 mb-2">Hotel Ordered</h2>
+            <p class="text-sm text-gray-600">{{ order.hotel.name }}</p>
+            <p class="text-sm text-gray-600">{{ order.hotel.location }}</p>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="bg-white p-4 rounded-lg shadow-md border">
+            <h2 class="text-lg font-bold text-gray-800 mb-2">Payment Info</h2>
+            <p class="text-sm text-gray-600"><span class="font-semibold">Method:</span> {{ order.payment_method }}</p>
+            <p class="text-sm text-gray-600"><span class="font-semibold">Status:</span> <span class="text-green-500">{{ order.payment_status }}</span></p>
+        </div>
+    </div>
+
+    <!-- Order Items -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden mb-8">
+        <h2 class="bg-gray-200 text-gray-800 text-lg font-semibold px-4 py-2">Order Items</h2>
+        <table class="w-full table-auto border-collapse">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="text-left px-4 py-2 text-sm font-semibold text-gray-600">Item</th>
+                    <th class="text-center px-4 py-2 text-sm font-semibold text-gray-600">Quantity</th>
+                    <th class="text-right px-4 py-2 text-sm font-semibold text-gray-600">Price</th>
+                    <th class="text-right px-4 py-2 text-sm font-semibold text-gray-600">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.items.all %}
+                <tr class="border-t">
+                    <td class="px-4 py-3 text-gray-800">{{ item.menu_item.title }}</td>
+                    <td class="px-4 py-3 text-center text-gray-800">{{ item.quantity }}</td>
+                    <td class="px-4 py-3 text-right text-gray-800">Kshs. {{ item.price }}</td>
+                    <td class="px-4 py-3 text-right text-gray-800">Kshs. {{ item.get_total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="bg-gray-50 p-6 rounded-lg shadow-md border">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Order Summary</h2>
+        <div class="flex justify-between text-sm text-gray-600 mb-2">
+            <span>Subtotal:</span>
+            <span>Kshs. {{ order.cost }}</span>
+        </div>
+        <div class="flex justify-between text-sm text-gray-600 mb-2">
+            <span>Tax:</span>
+            <span>Kshs. {{ order.tax }}</span>
+        </div>
+        <div class="flex justify-between text-sm text-gray-600 mb-4">
+            <span>Shipping:</span>
+            <span>Kshs. {{ order.shipping_cost }}</span>
+        </div>
+        <div class="flex justify-between text-lg font-bold text-gray-800">
+            <span>Total:</span>
+            <span>Kshs. {{ order.cost }}</span>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

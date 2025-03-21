@@ -1,0 +1,85 @@
+{% extends 'hotel/hotel_base.html' %}
+{% load static %}
+
+{% block hotel %}
+<div class="flex flex-col mt-8">
+    <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div
+            class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+            {% if orders %}
+            <table>
+                <thead>
+                    <tr>
+                        <th
+                            class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                            Order ID</th>
+                        <th
+                            class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                            Items</th>
+                        <th
+                            class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                            Status</th>
+                        <th
+                            class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                            Price</th>
+                        <th
+                            class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                            Order Time</th>
+                    </tr>
+                </thead>
+                
+                <tbody class="bg-white">
+
+                {% for order in orders %}
+
+                <tr>
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div class="text-sm leading-5 text-gray-900">{{ order.id }}</div>
+                    </td>
+
+                    <td class="px-4 py-3 border text-gray-600">
+                        <ul class="list-disc ml-4">
+                        {% for item in order.items.all %}
+                        <li>{{ item.menu_item.title }} (x{{ item.quantity }})</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <span
+                            class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{{ order.status }}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <span
+                            class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{{ order.cost }}</span>
+                    </td>
+
+                    <td
+                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                        {{ order.created_at }}</td>
+                    <td
+                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                        {{ menu.updated_at }}</td>
+
+                    <td
+                        class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                        <a href="" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                    </td>
+
+                    <td
+                        class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                        <a href="" class="text-red-600 hover:text-indigo-900">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            {% else %}
+            <div class="flex justify-center items-center">
+                <div class="grid place-items-center rounded w-1/2 m-3 p-4 bg-blue-200">
+                <div><h2 class="font-bold m-2">Ooops! No order found</h2></div>
+                <div><h2 class="m-1">Let's keep positive an order will be made</h2></div>
+                </div>
+            </div>
+            {% endif %}
+{% endblock hotel %}

@@ -1,0 +1,41 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <div class="spinner"></div>
+      <h3>We are processing your payment. Please wait...</h3>
+      <p id="status-message"></p>
+    </div>
+
+    <script>
+      const transactionId = "{{ transaction_id }}";
+
+      let checkStatusInterval = setInterval(function () {
+        console.log("Checking transaction status...");
+        fetch(`/mpesa/check_status/${transactionId}/`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "Success") {
+              clearInterval(checkStatusInterval);
+              window.location.href = "/checkout/";
+            } else if (data.status === "Failed") {
+              clearInterval(checkStatusInterval);
+              window.location.href = "/mpesa/payment-failed/";
+            } else if (data.status === "Cancelled") {
+              clearInterval(checkStatusInterval);
+              window.location.href = "/mpesa/payment-cancelled/";
+            }
+          })
+          .catch((error) => {
+            console.error("Error checking transaction status:", error);
+          });
+      }, 3000);
+    </script>
+
+{% endblock content %}

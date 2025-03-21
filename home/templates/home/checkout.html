@@ -1,0 +1,19 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Checkout</h1>
+<ul>
+  {% for item in cart_items %}
+    <li>
+      {{ item.menu_item.title }} - {{ item.quantity }} x {{ item.menu_item.price }}
+    </li>
+  {% endfor %}
+</ul>
+<p>Total: {{ cart_total }}</p>
+<form method="POST" action="{% url 'checkout' %}">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Place Order</button>
+</form>
+
+{% endblock content %}

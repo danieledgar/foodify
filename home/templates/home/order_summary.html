@@ -1,0 +1,68 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+    <!-- Order Summary Header -->
+    <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Order Summary</h1>
+        <p class="text-gray-600">Review your order before proceeding to checkout.</p>
+    </div>
+
+    <!-- Order Items -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="w-full table-auto border-collapse">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="text-left px-4 py-2 text-sm font-semibold text-gray-600">Item</th>
+                    <th class="text-center px-4 py-2 text-sm font-semibold text-gray-600">Quantity</th>
+                    <th class="text-right px-4 py-2 text-sm font-semibold text-gray-600">Price</th>
+                    <th class="text-right px-4 py-2 text-sm font-semibold text-gray-600">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic Rows -->
+                {% for item in menu_items %}
+                <tr class="border-t">
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 w-10 h-10">
+                                <img class="w-10 h-10 rounded-full"
+                                    src="{{ item.menu_item.menu_image.url }}"
+                                    alt="">
+                            </div>
+
+                            <div class="ml-4">
+                                <div class="text-sm font-medium leading-5 text-gray-900">{{ item.menu_item.title }}
+                                </div>
+                                <div class="text-sm leading-5 text-gray-500"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3 text-center text-gray-800">{{ item.quantity }}</td>
+                    <td class="px-4 py-3 text-right text-gray-800">Kshs. {{ item.menu_item.price }}</td>
+                    <td class="px-4 py-3 text-right text-gray-800">Kshs. {{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <form type='enctype' enctype="multipart/form-data" method= 'POST' class="fixed bottom-2 w-3/4">
+        {% csrf_token %}
+        <div class="m-4">
+            <label for="phone" class="block mb-2 text-sm font-medium text-gray-700">Phone Number To Pay</label>
+            <input type="tel" id="phone" name="phone" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                placeholder="Enter the number to pay" required>
+        </div>
+        <!-- Order Summary Footer -->
+        <div class="mt-6 flex justify-between items-center bg-gray-50 p-4 border-t border-gray-200 shadow-md rounded-lg">
+            <p class="text-lg font-bold text-gray-800">Grand Total: <span class="text-green-600">Kshs. {{ total_cost }}</span></p>
+            <button href="{% url 'checkout' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-lg shadow">
+                Pay Now
+            </button>
+        </div>
+        </form>
+</div>
+
+{% endblock content %}

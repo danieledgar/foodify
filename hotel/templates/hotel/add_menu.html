@@ -1,0 +1,73 @@
+{% extends 'hotel/hotel_base.html' %}
+{% load static%}
+{% block hotel %}
+
+    <!-- Title -->
+    <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">Add new Menu</h1>
+
+    <!-- Form Section -->
+    <form method="POST" enctype="multipart/form-data" class="max-w-md mx-auto">
+        {% csrf_token %}
+        
+        <!-- Title Field -->
+        <div class="mb-4">
+            <label for="title" class="block mb-2 text-sm font-medium text-gray-700">Title</label>
+            <input type="text" id="title" name="title" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                placeholder="Enter the menu's title" required>
+        </div>
+
+        <!-- Description Field -->
+        <div class="mb-4">
+            <label for="description" class="block mb-2 text-sm font-medium text-gray-700">Description</label>
+            <input type="text" id="description" name="description" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                placeholder="Enter the menu's description" required>
+        </div>
+        
+        <!-- Menu Image Field -->
+        <div class="mb-4">
+            <label for="menu_image" class="block mb-2 text-sm font-medium text-gray-700">Menu Image</label>
+            <input type="file" id="menu_image" name="menu_image" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                placeholder="Enter the menu's image" required>
+        </div>
+
+        <!-- Category Field -->
+        <div class="mb-4">
+            <label for="category" class="block mb-2 text-sm font-medium text-gray-700">Menu Category</label>
+                <select id="category" name="category" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                required>
+                <option value="" disabled selected>-- Select a Category --</option>
+                {% for value, label in categories %}
+                    <option value="{{ value }}">{{label}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Price Field -->
+        <div class="mb-4">
+            <label for="price" class="block mb-2 text-sm font-medium text-gray-700">Price</label>
+            <input type="number" id="price" name="price" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                placeholder="Enter the menu's price" required>
+        </div>
+        <div class="mb-4">
+            <label for="availability" class="block mb-2 text-sm font-medium text-gray-700">Availability</label>
+            <input type="checkbox" id="availability" name="Availability" 
+                class="w-fit px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                placeholder="Enter the menu's price" required>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" 
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg shadow-md transition duration-200">
+            Add Menu
+        </button>
+    </form>
+
+    <!-- Footer Section -->
+    <p class="text-xs text-gray-600 text-center mt-10">&copy; 2024</p>
+
+{% endblock hotel%}

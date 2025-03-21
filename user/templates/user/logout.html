@@ -1,0 +1,22 @@
+{% extends 'user/basic.html' %}
+{% load static %}
+
+{% block form%}
+  <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">Log Out</h1>
+  <form method='POST'>
+        {% csrf_token %}
+        <div class="mb-6 font-bold">
+            Are you sure you want to logout?
+        </div>
+        <div class="mb-6">
+            <a href="{% url 'home' %}">
+            <p class="text-center w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg shadow-md transition duration-200">
+            Cancel</p></a>
+        </div>
+        <button type="submit" 
+                class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg shadow-md transition duration-200">
+                Log Out
+            </button>
+  </form>
+  <p class="text-xs text-gray-600 text-center mt-10">&copy; 2025</p>
+{% endblock form %}

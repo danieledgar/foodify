@@ -1,0 +1,77 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Order List</h1>
+  
+    {% if orders %}
+    <div class="overflow-x-auto shadow rounded-lg">
+      <table class="min-w-full bg-white border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100 text-left text-gray-600 text-sm font-medium uppercase tracking-wider">
+            <th class="px-4 py-3 border">Order ID</th>
+            <th class="px-4 py-3 border">Items</th>
+            <th class="px-4 py-3 border">Cost</th>
+            <th class="px-4 py-3 border">Status</th>
+            <th class="px-4 py-3 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+          <tr class="hover:bg-gray-50">
+            <!-- Order ID -->
+            <td class="px-4 py-3 border font-medium text-gray-800">{{ order.id }}</td>
+            
+            <!-- Items -->
+            <td class="px-4 py-3 border text-gray-600">
+              <ul class="list-disc ml-4">
+                {% for item in order.items.all %}
+                <li>{{ item.menu_item.title }} (x{{ item.quantity }})</li>
+                {% endfor %}
+              </ul>
+            </td>
+            
+            <!-- Cost -->
+            <td class="px-4 py-3 border text-gray-800 font-semibold">Kshs. {{ order.cost }}</td>
+            
+            <!-- Status -->
+            <td class="px-4 py-3 border">
+              {% if order.status == "Packing" %}
+              <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">Pending</span>
+              {% elif order.status == "In-transit" %}
+              <span class="bg-green-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">In transit</span>
+              {% elif order.status == "Delivered" %}
+              <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Delivered</span>
+              {% elif order.status == "Cancelled" %}
+              <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium">Cancelled</span>
+              {% endif %}
+            </td>
+            
+            <!-- Actions -->
+            <td class="px-4 py-3 border">
+              <div class="flex space-x-2">
+                <a href="{% url 'order-details' order.id %}" class="text-blue-500 hover:text-blue-700">View</a>
+                {% if order.status == "Pending" %}
+                <form action="{% url 'cancel-order' order.id %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="text-red-500 hover:text-red-700">Cancel</button>
+                </form>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="text-center text-gray-600 mt-12">
+      <p class="text-lg">No orders found.</p>
+      <a href="{% url 'menu' %}" class="text-blue-500 hover:underline">Start browsing the menu</a>
+    </div>
+    {% endif %}
+  </div>
+
+  {% endblock content %}
+  

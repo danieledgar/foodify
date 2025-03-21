@@ -1,0 +1,19 @@
+{% extends 'hotel/hotel_base.html' %}
+{% load static %}
+
+{% block hotel %}
+
+    <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">Edit Menu</h1>
+
+    <!-- Form Section -->
+    <form method="POST" enctype="multipart/form-data" class="max-w-md mx-auto">
+    {% csrf_token %}
+        {{ form }}
+
+        <button type="submit" 
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg shadow-md transition duration-200">
+            Edit Menu
+        </button>
+    </form
+
+{% endblock %}

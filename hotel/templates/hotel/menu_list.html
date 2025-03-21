@@ -1,0 +1,104 @@
+{% extends 'hotel/hotel_base.html' %}
+{% load static %}
+
+{% block hotel %}
+
+    <div class="flex flex-col mt-8">
+        <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+            <div
+                class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                {% if menus %}
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th
+                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                Title</th>
+                            <th
+                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                Description</th>
+                            <th
+                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                Availability</th>
+                            <th
+                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                Price</th>
+                            <th
+                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                Hotel</th>
+                            <th
+                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                Updated at</th>
+                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody class="bg-white">
+                        
+                        {% for menu in menus %}
+                        <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-10 h-10">
+                                        <img class="w-10 h-10 rounded-full"
+                                            src="{{ menu.menu_image.url }}"
+                                            alt="">
+                                    </div>
+
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium leading-5 text-gray-900">{{ menu.title }}
+                                        </div>
+                                        <div class="text-sm leading-5 text-gray-500">{{ menu.category }}</div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-sm leading-5 text-gray-900">{{ menu.description }}</div>
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <span
+                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{{ menu.availability }}</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <span
+                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{{ menu.price }}</span>
+                            </td>
+
+                            <td
+                                class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                {{ menu.hotel.name }}</td>
+                            <td
+                                class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                {{ menu.updated_at }}</td>
+
+                            <td
+                                class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                <a href="{% url 'menu-update' menu.id %}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                            </td>
+
+                            <td
+                                class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                <a href="{% url 'menu-delete' menu.id %}" class="text-red-600 hover:text-indigo-900">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                    
+                </table>
+                {% else %}
+                    <div class="flex justify-center items-center">
+                        <div class="grid place-items-center rounded w-1/2 m-3 p-4 bg-blue-200">
+                        <div><h2 class="font-bold m-2">Ooops! No menu added</h2></div>
+                        <div><h2 class="m-1">Would you like to make your first menu?</h2></div>
+                        <div>
+                            <a href="{% url 'add-menu' %}" class=" m-5 py-2.5 px-6 rounded-lg text-sm font-bold text-white bg-teal-600">Click here</a></div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock hotel %}
