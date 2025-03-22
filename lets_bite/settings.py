@@ -164,15 +164,15 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_FILE_OVERWRITE = False
 
 #storages
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-#     },
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
 
-#     "staticfiles": {
-#         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-#     },
-# }
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
 
 
 
