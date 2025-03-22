@@ -105,23 +105,23 @@ WSGI_APPLICATION = 'lets_bite.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
-    }
-}
+#DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # # #supabase postgres database
-# import dj_database_url
+import dj_database_url
 
-# DATABASES = {
-#     'default': dj_database_url.parse(
-#         os.getenv('RENDER_DB_URL'),
-#         conn_max_age=600,
-#         ssl_require=True
-#     )
-# }
+DATABASES = {
+     'default': dj_database_url.parse(
+         os.getenv('RENDER_DB_URL'),
+         conn_max_age=600,
+         ssl_require=True
+     )
+ }
 
 
 # Password validation
