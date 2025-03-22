@@ -160,8 +160,8 @@ def order_summary(request):
             "PartyA": payment_phone,
             "PartyB": MpesaPassword.get_business_short_code(),
             "PhoneNumber": payment_phone,
-            "CallBackURL": "https://lets-bite.onrender.com/mpesa/callback/",
-            "AccountReference": "Lets_Bite",
+            "CallBackURL": "https://foodify-0n8m.onrender.com//mpesa/callback/",
+            "AccountReference": "Foodify",
             "TransactionDesc": "Payment for order",
         }
 
