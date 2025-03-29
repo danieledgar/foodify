@@ -10,7 +10,7 @@ django-storages==1.14.4
 gunicorn==23.0.0
 idna==3.10
 jmespath==1.0.1
-mysqlclient==2.2.6
+#mysqlclient
 packaging==24.2
 pillow==11.0.0
 psycopg2-binary==2.9.10
